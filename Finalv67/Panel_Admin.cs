@@ -25,6 +25,7 @@ namespace Finalv67
                     // Si la URL falla, carga una imagen por defecto si tienes una
                 }
             }
+           
         }
 
         private void AbrirFormEnPanel(object FormHijo)
@@ -66,6 +67,7 @@ namespace Finalv67
         private void btnProductos_Click(object sender, EventArgs e)
         {
             AbrirFormEnPanel(new FormProductos());
+
         }
 
         private void btnPersonal_Click(object sender, EventArgs e)

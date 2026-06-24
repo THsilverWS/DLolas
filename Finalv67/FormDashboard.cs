@@ -15,9 +15,10 @@ namespace Finalv67
         private void FormDashboard_Load_1(object sender, EventArgs e)
         {
             CargarResumen();
+            CargarStockBajo();
         }
 
-        private async void CargarResumen()
+        public async void CargarResumen()
         {
             try
             {
@@ -46,6 +47,31 @@ namespace Finalv67
             }
         }
 
-        
+        private async void CargarStockBajo()
+        {
+            try
+            {
+                var client = ConexionFirebase.Conectar();
+                // Traemos todos los productos
+                var productosNube = await client.Child("Productos").OnceAsync<ProductoFirebase>();
+
+                // Filtramos y transformamos al formato para el DataGridView
+                var listaBajoStock = productosNube
+                    .Where(p => p.Object != null && p.Object.Stock < 5)
+                    .Select(p => new {
+                        Nombre = p.Object.Nombre,
+                        Stock = p.Object.Stock,
+                        Id = p.Object.Id // Usamos el ID para saber qué editar
+                    }).ToList();
+
+                dgvStockBajo.DataSource = listaBajoStock;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al cargar alertas de stock: " + ex.Message);
+            }
+        }
+
+
     }
 }

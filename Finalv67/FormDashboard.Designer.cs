@@ -43,9 +43,13 @@
             lblEntregados = new Label();
             lblCancelados = new Label();
             panel4 = new Panel();
+            label5 = new Label();
             panel5 = new Panel();
             label4 = new Label();
             pictureBox4 = new PictureBox();
+            dgvStockBajo = new DataGridView();
+            label6 = new Label();
+            label7 = new Label();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panel2.SuspendLayout();
@@ -55,6 +59,7 @@
             panel4.SuspendLayout();
             panel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgvStockBajo).BeginInit();
             SuspendLayout();
             // 
             // panel1
@@ -64,7 +69,7 @@
             panel1.Controls.Add(label1);
             panel1.Controls.Add(pictureBox1);
             panel1.Controls.Add(lblTotal);
-            panel1.Location = new Point(3, 85);
+            panel1.Location = new Point(3, 74);
             panel1.Name = "panel1";
             panel1.Size = new Size(221, 113);
             panel1.TabIndex = 0;
@@ -106,7 +111,7 @@
             panel2.Controls.Add(label2);
             panel2.Controls.Add(pictureBox2);
             panel2.Controls.Add(lblPendientes);
-            panel2.Location = new Point(230, 85);
+            panel2.Location = new Point(230, 74);
             panel2.Name = "panel2";
             panel2.Size = new Size(219, 113);
             panel2.TabIndex = 1;
@@ -148,7 +153,7 @@
             panel3.Controls.Add(label3);
             panel3.Controls.Add(pictureBox3);
             panel3.Controls.Add(lblEntregados);
-            panel3.Location = new Point(455, 85);
+            panel3.Location = new Point(455, 74);
             panel3.Name = "panel3";
             panel3.Size = new Size(224, 113);
             panel3.TabIndex = 2;
@@ -195,16 +200,27 @@
             // 
             // panel4
             // 
+            panel4.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             panel4.BackColor = SystemColors.Control;
+            panel4.Controls.Add(label5);
             panel4.Controls.Add(panel5);
             panel4.Controls.Add(panel1);
             panel4.Controls.Add(panel2);
             panel4.Controls.Add(panel3);
-            panel4.Dock = DockStyle.Top;
             panel4.Location = new Point(0, 0);
             panel4.Name = "panel4";
-            panel4.Size = new Size(923, 282);
+            panel4.Size = new Size(923, 260);
             panel4.TabIndex = 4;
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Font = new Font("Century Gothic", 20.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label5.Location = new Point(329, 26);
+            label5.Name = "label5";
+            label5.Size = new Size(274, 32);
+            label5.TabIndex = 4;
+            label5.Text = "Resumen de Ventas";
             // 
             // panel5
             // 
@@ -213,7 +229,7 @@
             panel5.Controls.Add(label4);
             panel5.Controls.Add(pictureBox4);
             panel5.Controls.Add(lblCancelados);
-            panel5.Location = new Point(685, 85);
+            panel5.Location = new Point(685, 74);
             panel5.Name = "panel5";
             panel5.Size = new Size(229, 113);
             panel5.TabIndex = 3;
@@ -238,12 +254,45 @@
             pictureBox4.TabIndex = 5;
             pictureBox4.TabStop = false;
             // 
+            // dgvStockBajo
+            // 
+            dgvStockBajo.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            dgvStockBajo.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvStockBajo.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvStockBajo.Location = new Point(18, 337);
+            dgvStockBajo.Name = "dgvStockBajo";
+            dgvStockBajo.RowHeadersVisible = false;
+            dgvStockBajo.Size = new Size(880, 277);
+            dgvStockBajo.TabIndex = 5;
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Font = new Font("Century Gothic", 20.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label6.Location = new Point(18, 272);
+            label6.Name = "label6";
+            label6.Size = new Size(178, 32);
+            label6.TabIndex = 5;
+            label6.Text = "Stock Crítico";
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Location = new Point(25, 304);
+            label7.Name = "label7";
+            label7.Size = new Size(337, 17);
+            label7.TabIndex = 6;
+            label7.Text = "Productos con menos de 5 unidades en inventario.";
+            // 
             // FormDashboard
             // 
             AutoScaleDimensions = new SizeF(8F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Control;
             ClientSize = new Size(923, 644);
+            Controls.Add(label7);
+            Controls.Add(label6);
+            Controls.Add(dgvStockBajo);
             Controls.Add(panel4);
             Font = new Font("Century Gothic", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             FormBorderStyle = FormBorderStyle.None;
@@ -260,10 +309,13 @@
             panel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
             panel4.ResumeLayout(false);
+            panel4.PerformLayout();
             panel5.ResumeLayout(false);
             panel5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvStockBajo).EndInit();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -285,5 +337,9 @@
         private PictureBox pictureBox3;
         private Label label4;
         private PictureBox pictureBox4;
+        private DataGridView dgvStockBajo;
+        private Label label5;
+        private Label label6;
+        private Label label7;
     }
 }
