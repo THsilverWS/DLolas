@@ -1,0 +1,11 @@
+```text
+# Archivos de compilación y temporales
+bin/
+obj/
+.vs/
+*.user
+*.suo
+
+# Archivos de respaldo o caché
+*.tmp
+*.log
