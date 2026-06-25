@@ -22,10 +22,8 @@ namespace Finalv67
 
             var client = ConexionFirebase.Conectar();
 
-            // 2. Asegúrate de usar la misma ruta exacta que en el Login ("Usuarios")
             var usuario = await client.Child("usuarios").Child(LoginForm.UidUsuarioActual).OnceSingleAsync<UsuarioFirebase>();
 
-            // 3. Validación de seguridad contra el null que te daba el error
             if (usuario != null)
             {
                 txtNombre.Text = usuario.nombre;
@@ -45,40 +43,52 @@ namespace Finalv67
 
         private async void button1_Click(object sender, EventArgs e)
         {
+            string telefono = txtTelefono.Text.Trim();
+
+            //  VALIDACIONES
+            if (!long.TryParse(telefono, out _))
+            {
+                MessageBox.Show("El teléfono solo debe contener números.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if (!telefono.StartsWith("9"))
+            {
+                MessageBox.Show("El número debe comenzar con el dígito 9.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if (telefono.Length != 9)
+            {
+                MessageBox.Show("El teléfono debe tener exactamente 9 dígitos.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             try
             {
                 var client = ConexionFirebase.Conectar();
                 string uid = LoginForm.UidUsuarioActual;
 
-                // 1. Obtenemos el objeto actual
-                var usuarioExistente = await client.Child("usuarios").Child(uid).OnceSingleAsync<UsuarioFirebase>();
-
-                // 2. VALIDACIÓN CRÍTICA: Si no existe, no podemos editar
-                if (usuarioExistente == null)
+                var actualizaciones = new
                 {
-                    MessageBox.Show("Error: No se encontró el registro del usuario en la base de datos.");
-                    return;
-                }
+                    nombre = txtNombre.Text.Trim(),
+                    telefono = telefono,
+                    foto = txtUrlFoto.Text.Trim()
+                };
 
-                // 3. Editamos los campos
-                usuarioExistente.nombre = txtNombre.Text;
-                usuarioExistente.telefono = txtTelefono.Text;
-                usuarioExistente.foto = txtUrlFoto.Text;
+                await client.Child("usuarios").Child(uid).PatchAsync(actualizaciones);
 
-                // 4. Guardamos
-                await client.Child("usuarios").Child(uid).PutAsync(usuarioExistente);
+                // ACTUALIZACIÓN DE INTERFAZ
                 foreach (Form form in Application.OpenForms)
                 {
                     if (form is Panel_Admin adminForm)
                     {
-                        adminForm.ActualizarPerfil(txtNombre.Text, txtUrlFoto.Text);
+                        adminForm.ActualizarPerfil(txtNombre.Text.Trim(), txtUrlFoto.Text.Trim());
                         break;
                     }
                 }
 
-                // 5. Refrescamos interfaz
-                pbFotoPerfil.Load(txtUrlFoto.Text);
-                MessageBox.Show("Perfil actualizado correctamente");
+                try { pbFotoPerfil.Load(txtUrlFoto.Text); } catch { }
+
+                MessageBox.Show("Perfil actualizado correctamente.");
             }
             catch (Exception ex)
             {
@@ -87,3 +97,4 @@ namespace Finalv67
         }
     }
 }
+
