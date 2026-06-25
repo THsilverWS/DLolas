@@ -22,7 +22,6 @@ namespace Finalv67
                 }
                 catch
                 {
-                    // Si la URL falla, carga una imagen por defecto si tienes una
                 }
             }
            

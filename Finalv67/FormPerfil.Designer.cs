@@ -88,6 +88,7 @@
             // txtTelefono
             // 
             txtTelefono.Location = new Point(44, 113);
+            txtTelefono.MaxLength = 9;
             txtTelefono.Name = "txtTelefono";
             txtTelefono.Size = new Size(196, 23);
             txtTelefono.TabIndex = 5;
@@ -131,7 +132,7 @@
             // 
             // pbFotoPerfil
             // 
-            pbFotoPerfil.Location = new Point(141, 61);
+            pbFotoPerfil.Location = new Point(146, 59);
             pbFotoPerfil.Name = "pbFotoPerfil";
             pbFotoPerfil.Size = new Size(130, 130);
             pbFotoPerfil.SizeMode = PictureBoxSizeMode.StretchImage;

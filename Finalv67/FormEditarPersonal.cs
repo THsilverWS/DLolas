@@ -6,7 +6,7 @@ namespace Finalv67
 {
     public partial class FormEditarPersonal : Form
     {
-        private string _idPersona; // Guardamos el ID aquí
+        private string _idPersona; //
 
         public FormEditarPersonal(PersonalFirebase persona, string id)
         {
