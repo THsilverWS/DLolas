@@ -73,22 +73,31 @@ namespace Finalv67
 
             try
             {
-                // Vemos en el Firebase para verificar el stock actual
+                // Conectamos y descargamos la lista completa para buscar por su clave real de Firebase
                 var client = ConexionFirebase.Conectar();
-                var prodNube = await client
-                    .Child("Productos")
-                    .Child(nombre)
-                    .OnceSingleAsync<ProductoFirebase>();
+                var productosNube = await client.Child("Productos").OnceAsync<ProductoFirebase>();
 
-                // Verificamos el producto y stock
-                if (prodNube == null || prodNube.Stock <= 0)
+                // Buscamos el producto cuyo ID interno coincida con el ID seleccionado del Combo
+                var nodoProducto = productosNube.FirstOrDefault(p => p.Object.Id == idProd);
+
+                // Verificamos si realmente existe en la base de datos
+                if (nodoProducto == null)
                 {
-                    MessageBox.Show($"El stock para '{nombre}' está completamente agotado.", "Stock Vacío", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    CargarProductosCombo();
+                    MessageBox.Show($"El producto '{nombre}' no fue encontrado en el servidor.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
-                // para verficar si el intentan llevar mas cantidad de la que hay en stock
+                ProductoFirebase prodNube = nodoProducto.Object;
+
+                // Verificamos si tiene stock disponible
+                if (prodNube.Stock <= 0)
+                {
+                    MessageBox.Show($"El stock para '{nombre}' está completamente agotado.", "Stock Vacío", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    CargarProductosCombo(); // Recargamos el combo para limpiar los agotados
+                    return;
+                }
+
+                // Verificar si intentan llevar más cantidad de la que hay en stock en el carrito actual
                 var existing = carritoDt.AsEnumerable().FirstOrDefault(r => r.Field<int>("Id") == idProd);
                 int cantidadEnCarritoAnterior = existing != null ? existing.Field<int>("Cantidad") : 0;
 
@@ -98,7 +107,7 @@ namespace Finalv67
                     return;
                 }
 
-                // Agregamos al carrito la cantidad si ya estaba
+                // Agregamos al carrito o incrementamos la cantidad
                 if (existing != null)
                 {
                     int nuevaCant = existing.Field<int>("Cantidad") + cantidad;
@@ -167,48 +176,26 @@ namespace Finalv67
                 MessageBox.Show("La fecha de entrega no puede ser menor al día de hoy.", "Fecha Inválida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
+
             string telefono = txtTelefono.Text;
-
-            if (telefono.Length != 9)
+            if (telefono.Length != 9 || !telefono.StartsWith("9") || !telefono.All(char.IsDigit))
             {
-                MessageBox.Show("El número debe tener 9 dígitos");
-                return;
-            }
-
-            if (!telefono.StartsWith("9"))
-            {
-                MessageBox.Show("El número debe empezar con 9");
-                return;
-            }
-
-            if (!telefono.All(char.IsDigit))
-            {
-                MessageBox.Show("Ingrese un número válido");
+                MessageBox.Show("Ingrese un número de teléfono válido (9 dígitos y empezar con 9).");
                 return;
             }
 
             string dni = txtDNI.Text;
-
-            if (dni.Length != 8)
+            if (dni.Length != 8 || !dni.All(char.IsDigit))
             {
-                MessageBox.Show("El DNI debe tener 8 dígitos");
+                MessageBox.Show("Ingrese un DNI válido (8 dígitos).");
                 return;
             }
 
-            if (!dni.All(char.IsDigit))
-            {
-                MessageBox.Show("Ingrese un DNI válido");
-                return;
-            }
             if (cmbPago.SelectedIndex == -1)
             {
-                MessageBox.Show("Por favor, selecciona una opción válida de la lista.",
-                                "Campo obligatorio",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Warning);
-                return; 
+                MessageBox.Show("Por favor, selecciona una opción válida de la lista.", "Campo obligatorio", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
-
 
             // Bloqueamos interfaz mientras carga la venta
             AlternarBloqueoInterfaz(true);
@@ -221,6 +208,9 @@ namespace Finalv67
             {
                 var tareasStock = new List<Task>();
 
+                // Descargamos TODOS los productos de la nube una sola vez ANTES del bucle
+                var todosProductosNube = await client.Child("Productos").OnceAsync<ProductoFirebase>();
+
                 // Procesamos cada item del carrito
                 foreach (DataRow r in carritoDt.Rows)
                 {
@@ -229,21 +219,23 @@ namespace Finalv67
                     string nombreProd = r.Field<string>("Nombre");
                     double precioUnit = r.Field<double>("PrecioUnit");
 
-                    var prodNube = await client
-                        .Child("Productos")
-                        .Child(nombreProd)
-                        .OnceSingleAsync<ProductoFirebase>();
+                    // Buscamos el producto localmente usando el ID
+                    var nodoProd = todosProductosNube.FirstOrDefault(p => p.Object.Id == id);
 
-                    if (prodNube == null || prodNube.Stock < cantComprada)
+                    if (nodoProd == null || nodoProd.Object.Stock < cantComprada)
                     {
                         MessageBox.Show($"¡Error de inventario! El producto '{nombreProd}' ya no cuenta con stock suficiente en la nube.\nVenta cancelada.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         AlternarBloqueoInterfaz(false);
                         return;
                     }
 
-                    // Actualizamos stock
+                    ProductoFirebase prodNube = nodoProd.Object;
+
+                    // Actualizamos el stock en el objeto
                     prodNube.Stock -= cantComprada;
-                    tareasStock.Add(client.Child("Productos").Child(nombreProd).PutAsync(prodNube));
+
+                    // Guardamos en Firebase usando la llave real (nodoProd.Key)
+                    tareasStock.Add(client.Child("Productos").Child(nodoProd.Key).PutAsync(prodNube));
 
                     var itemDetalle = new DetalleItemCarrito
                     {
@@ -255,6 +247,7 @@ namespace Finalv67
                     listaProductosPedido.Add("item_" + id, itemDetalle);
                 }
 
+                // Ejecutamos todas las actualizaciones de stock en paralelo
                 await Task.WhenAll(tareasStock);
 
                 // Creamos los datos del pedido para subir a Firebase
@@ -278,13 +271,11 @@ namespace Finalv67
                 };
 
                 // Subimos el pedido al firebase
-                await client
-                    .Child("Pedidos")
-                    .PostAsync(nuevoPedido);
+                await client.Child("Pedidos").PostAsync(nuevoPedido);
 
                 MessageBox.Show($"¡Venta Exitosa!\nTotal a cobrar: S/ {totalVenta:F2}", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                LimpiarFormularioVenta(); // limpiamos el formulario para una nueva venta
+                LimpiarFormularioVenta(); // Limpiamos el formulario para una nueva venta
                 CargarProductosCombo();
             }
             catch (Exception ex)

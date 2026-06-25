@@ -150,15 +150,24 @@ namespace Finalv67
         {
             if (listaCompleta == null) return;
 
-            string filtro = txtBuscar.Text.ToLower();
+            string filtro = txtBuscar.Text.ToLower().Trim();
+
+            // Si el cuadro de búsqueda está vacío, volvemos a mostrar la lista completa
+            if (string.IsNullOrEmpty(filtro))
+            {
+                dgvPersonal.DataSource = listaCompleta;
+                await CargarFotosEnGrid();
+                return;
+            }
 
             var filtrados = listaCompleta.Where(p =>
-                p.nombre.ToLower().Contains(filtro) ||
-                p.correo.ToLower().Contains(filtro)
+                (p.nombre != null && p.nombre.ToLower().Contains(filtro)) ||
+                (p.correo != null && p.correo.ToLower().Contains(filtro))
             ).ToList();
 
             dgvPersonal.DataSource = filtrados;
 
+            // Volvemos a procesar y renderizar las imágenes de las filas resultantes
             await CargarFotosEnGrid();
         }
 
