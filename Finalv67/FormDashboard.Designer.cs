@@ -258,6 +258,8 @@
             // 
             dgvStockBajo.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dgvStockBajo.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvStockBajo.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            dgvStockBajo.BackgroundColor = SystemColors.Control;
             dgvStockBajo.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvStockBajo.Location = new Point(18, 337);
             dgvStockBajo.Name = "dgvStockBajo";

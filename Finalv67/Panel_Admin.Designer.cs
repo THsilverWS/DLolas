@@ -340,6 +340,7 @@
             // 
             // dgvPedidos
             // 
+            dgvPedidos.AllowUserToAddRows = false;
             dgvPedidos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvPedidos.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dgvPedidos.BackgroundColor = SystemColors.Control;

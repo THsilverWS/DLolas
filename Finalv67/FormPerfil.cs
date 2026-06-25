@@ -1,12 +1,6 @@
 ﻿using Firebase.Database.Query;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Finalv67
 {
@@ -25,7 +19,6 @@ namespace Finalv67
 
             var usuario = await client.Child("usuarios").Child(LoginForm.UidUsuarioActual).OnceSingleAsync<UsuarioFirebase>();
 
-            // 3. Validación de seguridad contra el null que te daba el error
             if (usuario != null)
             {
                 txtNombre.Text = usuario.nombre;
@@ -99,3 +92,4 @@ namespace Finalv67
         }
     }
 }
+

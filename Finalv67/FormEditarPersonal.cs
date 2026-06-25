@@ -6,7 +6,7 @@ namespace Finalv67
 {
     public partial class FormEditarPersonal : Form
     {
-        private string _idPersona; //
+        private string _idPersona;
 
         public FormEditarPersonal(PersonalFirebase persona, string id)
         {
@@ -21,6 +21,28 @@ namespace Finalv67
 
         private async void btnGuardar_Click(object sender, EventArgs e)
         {
+            string telefono = txtTelefono.Text.Trim();
+
+            // Validar que solo sean números
+            if (!long.TryParse(telefono, out _))
+            {
+                MessageBox.Show("El teléfono solo debe contener números.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Validar que empiece por 9
+            if (!telefono.StartsWith("9"))
+            {
+                MessageBox.Show("El número de teléfono debe comenzar con el dígito 9.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Validar la longitud exacta
+            if (telefono.Length != 9)
+            {
+                MessageBox.Show("El número de teléfono debe tener exactamente 9 dígitos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             try
             {
                 var client = ConexionFirebase.Conectar();
