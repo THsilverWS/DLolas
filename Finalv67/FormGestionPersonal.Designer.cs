@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             panel1 = new Panel();
+            btnCodigo = new Button();
             txtBuscar = new TextBox();
             label1 = new Label();
             dgvPersonal = new DataGridView();
@@ -42,6 +43,7 @@
             // panel1
             // 
             panel1.BackColor = SystemColors.Control;
+            panel1.Controls.Add(btnCodigo);
             panel1.Controls.Add(txtBuscar);
             panel1.Controls.Add(label1);
             panel1.Dock = DockStyle.Top;
@@ -49,6 +51,17 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(1055, 107);
             panel1.TabIndex = 0;
+            // 
+            // btnCodigo
+            // 
+            btnCodigo.Anchor = AnchorStyles.Right;
+            btnCodigo.Location = new Point(767, 31);
+            btnCodigo.Name = "btnCodigo";
+            btnCodigo.Size = new Size(233, 47);
+            btnCodigo.TabIndex = 5;
+            btnCodigo.Text = "Configurar Codigo de Inicio de Sesion";
+            btnCodigo.UseVisualStyleBackColor = true;
+            btnCodigo.Click += btnCodigo_Click;
             // 
             // txtBuscar
             // 
@@ -141,5 +154,6 @@
         private Panel panel4;
         private TextBox txtBuscar;
         private Label label1;
+        private Button btnCodigo;
     }
 }

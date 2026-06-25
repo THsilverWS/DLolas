@@ -16,6 +16,8 @@ namespace Finalv67
         }
         public static string TokenUsuarioActual = "";
         public static string UidUsuarioActual = "";
+        public static string RolUsuarioActual = "";
+        public static string CargoUsuarioActual = "";
 
         private async void btnIngresar_Click(object sender, EventArgs e)
         {
@@ -38,7 +40,8 @@ namespace Finalv67
                 ConexionFirebase.TokenGlobal = await userCredential.User.GetIdTokenAsync();
 
                 var client = ConexionFirebase.Conectar();
-                var usuariosNube = await client.Child("usuarios").OnceAsync<UsuarioFirebase>();
+
+                var usuariosNube = await client.Child("usuarios").OnceAsync<PersonalFirebase>();
 
                 var usuarioEncontrado = usuariosNube.FirstOrDefault(u => u.Key == userCredential.User.Uid);
                 UidUsuarioActual = userCredential.User.Uid;
@@ -46,6 +49,9 @@ namespace Finalv67
                 if (usuarioEncontrado != null)
                 {
                     string rol = usuarioEncontrado.Object.rol?.ToLower();
+
+                    RolUsuarioActual = usuarioEncontrado.Object.rol;
+                    CargoUsuarioActual = usuarioEncontrado.Object.cargo;
 
                     if (rol == "admin")
                     {
@@ -57,7 +63,6 @@ namespace Finalv67
 
                         panel.FormClosed += (s, args) => Application.Exit();
                         panel.Show();
-
                     }
                     else
                     {

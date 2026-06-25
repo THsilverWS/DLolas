@@ -23,8 +23,9 @@ namespace Finalv67
                 catch
                 {
                 }
+                this.Load += new System.EventHandler(this.Panel_Admin_Load);
             }
-           
+
         }
 
         private void AbrirFormEnPanel(object FormHijo)
@@ -137,8 +138,13 @@ namespace Finalv67
         }
         public void ActualizarPerfil(string nuevoNombre, string nuevaFotoUrl)
         {
-            lblUsuario.Text = nuevoNombre; // O el nombre del control que uses
+            lblUsuario.Text = nuevoNombre;
             try { pbFotoUsuario.Load(nuevaFotoUrl); } catch { }
+        }
+
+        private void Panel_Admin_Load(object sender, EventArgs e)
+        {
+            AbrirFormEnPanel(new FormDashboard());
         }
     }
 }

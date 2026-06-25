@@ -53,7 +53,7 @@ namespace Finalv67
             btnEditar.Name = "btnEditar";
             btnEditar.HeaderText = "Acción";
             btnEditar.Text = "Editar";
-            btnEditar.UseColumnTextForButtonValue = true; 
+            btnEditar.UseColumnTextForButtonValue = true;
             dgvPersonal.Columns.Add(btnEditar);
 
             // Columna Botón Eliminar
@@ -166,24 +166,47 @@ namespace Finalv67
         {
             if (e.RowIndex >= 0)
             {
-                var persona = (PersonalFirebase)dgvPersonal.Rows[e.RowIndex].DataBoundItem;
+                var personaAfectada = (PersonalFirebase)dgvPersonal.Rows[e.RowIndex].DataBoundItem;
+                if (personaAfectada == null) return;
 
-                if (persona == null) return;
+                // --- CORREGIDO: VALIDACIÓN MEDIANTE VARIABLE GLOBAL DEL LOGIN ---
+                string miCargoActual = LoginForm.CargoUsuarioActual;
 
+                // 1. CLÁUSULA DE SEGURIDAD PARA EL BOTÓN EDITAR
                 if (dgvPersonal.Columns[e.ColumnIndex].Name == "btnEditar")
                 {
-                    FormEditarPersonal formEdicion = new FormEditarPersonal(persona, persona.id);
+                    string rolAfectado = personaAfectada.rol?.Trim().ToLower();
+
+                    // REGLA: Si la persona seleccionada tiene rango admin, SOLO el Dueño puede editarla
+                    if ((rolAfectado == "admin" || rolAfectado == "administrador") && miCargoActual != "Dueño")
+                    {
+                        MessageBox.Show("Acceso denegado: Solo el Administrador Principal con cargo de 'Dueño' puede modificar a otros usuarios administradores.",
+                                        "Restricción de Seguridad", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                        return;
+                    }
+
+                    // Si pasa la validación, abre el formulario de edición pasándole el contexto de su cargo
+                    FormEditarPersonal formEdicion = new FormEditarPersonal(personaAfectada, personaAfectada.id, miCargoActual);
                     formEdicion.ShowDialog();
                     await CargarPersonal();
                 }
 
+                // 2. CLÁUSULA DE SEGURIDAD PARA EL BOTÓN ELIMINAR
                 if (dgvPersonal.Columns[e.ColumnIndex].Name == "btnEliminar")
                 {
-                    DialogResult dr = MessageBox.Show($"¿Seguro que quieres eliminar a {persona.nombre}?",
+                    // REGLA: El cargo de Dueño es intocable, jamás se puede eliminar del sistema
+                    if (personaAfectada.cargo?.Trim().ToLower() == "dueño")
+                    {
+                        MessageBox.Show("Operación inválida: El Administrador Principal con cargo de 'Dueño' no puede ser eliminado del ecosistema de la pastelería.",
+                                        "Error de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+
+                    DialogResult dr = MessageBox.Show($"¿Seguro que quieres eliminar a {personaAfectada.nombre}?",
                                                       "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                     if (dr == DialogResult.Yes)
                     {
-                        EliminarPersonal(persona.id);
+                        EliminarPersonal(personaAfectada.id);
                     }
                 }
             }
@@ -202,6 +225,14 @@ namespace Finalv67
             catch (Exception ex)
             {
                 MessageBox.Show("Error al eliminar: " + ex.Message);
+            }
+        }
+
+        private void btnCodigo_Click(object sender, EventArgs e)
+        {
+            using (FormCodigo ventanaModal = new FormCodigo())
+            {
+                ventanaModal.ShowDialog();
             }
         }
     }

@@ -35,10 +35,17 @@ El sistema está dividido en módulos estratégicos pensados para la eficiencia 
 
 ---
 
-## 👥 Colaboradores
+# 👥 Colaboradores
 
-* **Mathias (@THsilverWS)** — *Desarrollador Principal & Arquitectura de Datos*
-* **Juandi (@JuarezDKNN)** — *Colaborador & Automatización*
+<a href="https://github.com/THsilverWS">
+  <img src="https://github.com/THsilverWS.png" width="80px;" alt="THsilverWS"/>
+</a>
+<a href="https://github.com/JuarezDKNN">
+  <img src="https://github.com/JuarezDKNN.png" width="80px;" alt="JuarezDKNN"/>
+</a>
+
+**THsilverWS** - Desarrollador Principal  
+**JuarezDKNN** - Colaborador
 
 ---
 

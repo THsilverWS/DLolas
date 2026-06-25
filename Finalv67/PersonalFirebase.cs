@@ -14,4 +14,8 @@ namespace Finalv67
         public string telefono { get; set; }
         public string id { get; set; }
     }
+    public class ClaseCodigoSeguridad
+    {
+        public string codigo { get; set; }
+    }
 }

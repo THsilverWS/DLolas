@@ -374,6 +374,7 @@
             Name = "Panel_Admin";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Panel Admin";
+            Load += Panel_Admin_Load;
             panel1.ResumeLayout(false);
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
