@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMenu));
             btnNuevoPedido = new Button();
             btnSalir = new Button();
             btnGestionStock = new Button();
@@ -140,6 +141,7 @@
             ClientSize = new Size(933, 519);
             Controls.Add(pictureBox1);
             Controls.Add(panel1);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Margin = new Padding(4, 3, 4, 3);
             Name = "FormMenu";
             Text = "FormMenu";

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormCodigo));
             lblCodigoActual = new Label();
             label2 = new Label();
             btnGuardar = new Button();
@@ -97,6 +98,7 @@
             Controls.Add(label2);
             Controls.Add(lblCodigoActual);
             FormBorderStyle = FormBorderStyle.FixedToolWindow;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "FormCodigo";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Codigo";

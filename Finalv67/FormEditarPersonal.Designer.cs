@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormEditarPersonal));
             txtTelefono = new TextBox();
             btnGuardar = new Button();
             label1 = new Label();
@@ -154,6 +155,7 @@
             Controls.Add(btnGuardar);
             Controls.Add(txtTelefono);
             FormBorderStyle = FormBorderStyle.FixedToolWindow;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "FormEditarPersonal";
             Text = "FormEditarPersonal";
             Load += FormEditarPersonal_Load;

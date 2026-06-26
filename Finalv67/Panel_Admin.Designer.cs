@@ -342,6 +342,7 @@
             Controls.Add(panel5);
             Controls.Add(panel1);
             Font = new Font("Century Gothic", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "Panel_Admin";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Panel Admin";

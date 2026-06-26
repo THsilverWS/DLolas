@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormVenta));
             groupBox1 = new GroupBox();
             label8 = new Label();
             txtNota = new TextBox();
@@ -368,6 +369,7 @@
             Controls.Add(groupBox2);
             Controls.Add(groupBox3);
             Controls.Add(groupBox1);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Margin = new Padding(4, 3, 4, 3);
             Name = "FormVenta";
             Text = "Registrar venta";

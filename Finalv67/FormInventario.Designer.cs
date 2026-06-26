@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormInventario));
             dgvProductos = new DataGridView();
             panel1 = new Panel();
             button1 = new Button();
@@ -71,6 +72,7 @@
             ClientSize = new Size(800, 450);
             Controls.Add(dgvProductos);
             Controls.Add(panel1);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "FormInventario";
             Text = "Inventario";
             Load += FormInventario_Load;
