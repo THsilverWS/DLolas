@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             groupBox1 = new GroupBox();
+            label8 = new Label();
             txtNota = new TextBox();
             label3 = new Label();
             label2 = new Label();
@@ -63,6 +64,7 @@
             // groupBox1
             // 
             groupBox1.BackColor = Color.NavajoWhite;
+            groupBox1.Controls.Add(label8);
             groupBox1.Controls.Add(txtNota);
             groupBox1.Controls.Add(label3);
             groupBox1.Controls.Add(label2);
@@ -79,9 +81,18 @@
             groupBox1.TabIndex = 0;
             groupBox1.TabStop = false;
             // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Location = new Point(14, 192);
+            label8.Name = "label8";
+            label8.Size = new Size(61, 15);
+            label8.TabIndex = 7;
+            label8.Text = "Nota extra";
+            // 
             // txtNota
             // 
-            txtNota.Location = new Point(22, 192);
+            txtNota.Location = new Point(12, 216);
             txtNota.Multiline = true;
             txtNota.Name = "txtNota";
             txtNota.ScrollBars = ScrollBars.Vertical;
@@ -300,7 +311,6 @@
             cmbPago.Anchor = AnchorStyles.Bottom;
             cmbPago.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbPago.FormattingEnabled = true;
-            cmbPago.Items.AddRange(new object[] { "Efectivo", "Tarjeta", "Yape", "Plin" });
             cmbPago.Location = new Point(82, 439);
             cmbPago.Margin = new Padding(4, 3, 4, 3);
             cmbPago.Name = "cmbPago";
@@ -402,5 +412,6 @@
         private Label label4;
         private Label label7;
         private TextBox txtNota;
+        private Label label8;
     }
 }

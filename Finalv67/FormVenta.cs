@@ -23,14 +23,18 @@ namespace Finalv67
         {
             cmbPago.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbProductos.DropDownStyle = ComboBoxStyle.DropDownList;
-            CargarProductosCombo();
-            InicializarCarrito();
+            string[] metodosPago = new string[] { "Efectivo", "Yape", "Plin", "Tarjeta" };
 
-            // Que el calendario inicie por defecto con la fecha de mañana
+            cmbPago.DataSource = metodosPago;
+
+            CargarProductosCombo();
+
+            InicializarCarrito();
             dtpFechaEntrega.Value = DateTime.Now.AddDays(1);
+
             if (cmbPago.Items.Count > 0)
             {
-                cmbPago.SelectedIndex = 0; // Selecciona el primer elemento por defecto
+                cmbPago.SelectedIndex = 0;
             }
         }
 
