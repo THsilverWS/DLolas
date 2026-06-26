@@ -44,19 +44,7 @@ namespace Finalv67
 
         private async void btnVentas_Click(object sender, EventArgs e)
         {
-            panelContenedor.Controls.Clear();
-
-            dgvPedidos.Visible = true;
-            dgvPedidos.Dock = DockStyle.Fill;
-
-            if (!panelContenedor.Controls.Contains(dgvPedidos))
-            {
-                panelContenedor.Controls.Add(dgvPedidos);
-            }
-
-            dgvPedidos.BringToFront();
-
-            await CargarPedidosEnGrid();
+            AbrirFormEnPanel(new FormListaVentas());
         }
 
         private void btnDashboard_Click(object sender, EventArgs e)
@@ -80,52 +68,6 @@ namespace Finalv67
             Application.Exit();
         }
 
-        private async System.Threading.Tasks.Task CargarPedidosEnGrid()
-        {
-            try
-            {
-                dgvPedidos.Cursor = Cursors.WaitCursor;
-                var client = ConexionFirebase.Conectar();
-                var pedidosNube = await client.Child("Pedidos").OnceAsync<PedidoFirebase>();
-
-                DataTable dt = new DataTable();
-                dt.Columns.Add("Id", typeof(string));
-                dt.Columns.Add("Cliente", typeof(string));
-                dt.Columns.Add("DNI", typeof(string));
-                dt.Columns.Add("Telefono", typeof(string));
-                dt.Columns.Add("Direccion", typeof(string));
-                dt.Columns.Add("Total", typeof(double));
-                dt.Columns.Add("Estado", typeof(string));
-                dt.Columns.Add("Fecha", typeof(string));
-
-                var pedidosOrdenados = pedidosNube.OrderByDescending(p => p.Object.Fecha);
-
-                foreach (var p in pedidosOrdenados)
-                {
-                    if (p.Object != null)
-                    {
-                        dt.Rows.Add(
-                            p.Key,
-                            p.Object.Cliente,
-                            p.Object.DNI,
-                            p.Object.Telefono,
-                            p.Object.Direccion,
-                            p.Object.Total,
-                            p.Object.EstadoPedido,
-                            p.Object.Fecha
-                        );
-                    }
-                }
-
-                dgvPedidos.DataSource = dt;
-                dgvPedidos.Cursor = Cursors.Default;
-            }
-            catch (Exception ex)
-            {
-                dgvPedidos.Cursor = Cursors.Default;
-                MessageBox.Show("Error al cargar pedidos: " + ex.Message);
-            }
-        }
 
         private void button7_Click(object sender, EventArgs e)
         {

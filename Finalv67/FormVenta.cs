@@ -73,7 +73,6 @@ namespace Finalv67
 
             try
             {
-                // Conectamos y descargamos la lista completa para buscar por su clave real de Firebase
                 var client = ConexionFirebase.Conectar();
                 var productosNube = await client.Child("Productos").OnceAsync<ProductoFirebase>();
 
@@ -107,7 +106,7 @@ namespace Finalv67
                     return;
                 }
 
-                // Agregamos al carrito o incrementamos la cantidad
+                // Agregamos al carrito
                 if (existing != null)
                 {
                     int nuevaCant = existing.Field<int>("Cantidad") + cantidad;
@@ -208,7 +207,6 @@ namespace Finalv67
             {
                 var tareasStock = new List<Task>();
 
-                // Descargamos TODOS los productos de la nube una sola vez ANTES del bucle
                 var todosProductosNube = await client.Child("Productos").OnceAsync<ProductoFirebase>();
 
                 // Procesamos cada item del carrito
@@ -234,7 +232,6 @@ namespace Finalv67
                     // Actualizamos el stock en el objeto
                     prodNube.Stock -= cantComprada;
 
-                    // Guardamos en Firebase usando la llave real (nodoProd.Key)
                     tareasStock.Add(client.Child("Productos").Child(nodoProd.Key).PutAsync(prodNube));
 
                     var itemDetalle = new DetalleItemCarrito

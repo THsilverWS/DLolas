@@ -13,6 +13,7 @@ namespace Finalv67
         public LoginForm()
         {
             InitializeComponent();
+            this.MaximizeBox = false;
         }
         public static string TokenUsuarioActual = "";
         public static string UidUsuarioActual = "";

@@ -212,6 +212,7 @@
             Controls.Add(dgvProductos);
             Controls.Add(panel1);
             Font = new Font("Century Gothic", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            FormBorderStyle = FormBorderStyle.None;
             Margin = new Padding(5, 3, 5, 3);
             Name = "FormProductos";
             Text = "Form1";

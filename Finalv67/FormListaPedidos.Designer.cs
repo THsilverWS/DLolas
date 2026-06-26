@@ -36,6 +36,7 @@
             txtBuscarDNI = new TextBox();
             label1 = new Label();
             panel1 = new Panel();
+            button1 = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvPedidos).BeginInit();
             groupBox1.SuspendLayout();
             panel1.SuspendLayout();
@@ -123,6 +124,7 @@
             // 
             // panel1
             // 
+            panel1.Controls.Add(button1);
             panel1.Controls.Add(groupBox1);
             panel1.Controls.Add(label1);
             panel1.Controls.Add(txtBuscarDNI);
@@ -132,6 +134,16 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(289, 519);
             panel1.TabIndex = 4;
+            // 
+            // button1
+            // 
+            button1.Location = new Point(72, 284);
+            button1.Name = "button1";
+            button1.Size = new Size(152, 44);
+            button1.TabIndex = 4;
+            button1.Text = "Mas Detalles";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
             // 
             // FormListaPedidos
             // 
@@ -163,5 +175,6 @@
         private System.Windows.Forms.TextBox txtBuscarDNI;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panel1;
+        private Button button1;
     }
 }

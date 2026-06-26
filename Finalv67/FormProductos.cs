@@ -26,6 +26,7 @@ namespace Finalv67
         {
             try
             {
+                this.Cursor = Cursors.WaitCursor;
                 var client = ConexionFirebase.Conectar();
                 var productosNube = await client.Child("Productos").OnceAsync<ProductoFirebase>();
 
@@ -49,27 +50,49 @@ namespace Finalv67
             {
                 MessageBox.Show("Error al cargar: " + ex.Message);
             }
+            finally
+            {
+                this.Cursor = Cursors.Default;
+            }
         }
 
         // GUARDAR O ACTUALIZAR UN PRODUCTO
         private async void btnGuardar_Click(object sender, EventArgs e)
         {
+            // Validar campos vacíos
             if (string.IsNullOrWhiteSpace(txtNombre.Text) || string.IsNullOrWhiteSpace(txtPrecio.Text) || string.IsNullOrWhiteSpace(txtStock.Text))
             {
-                MessageBox.Show("Por favor, completa todos los campos.");
+                MessageBox.Show("Por favor, completa todos los campos obligatorios.", "Campos Vacíos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Validar formatos numéricos
+            if (!double.TryParse(txtPrecio.Text, out double precioVerificado))
+            {
+                MessageBox.Show("Por favor, ingrese un precio numérico válido.", "Error de Formato", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (!int.TryParse(txtStock.Text, out int stockVerificado))
+            {
+                MessageBox.Show("Por favor, ingrese un valor entero válido para el Stock.", "Error de Formato", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             try
             {
+                this.Cursor = Cursors.WaitCursor;
                 var client = ConexionFirebase.Conectar();
 
                 int idTemporal;
+                // Evaluamos si es un producto nuevo o una edición
                 bool esNuevo = !int.TryParse(lblId.Text, out idTemporal) || idTemporal == 0;
 
+                // Si es nuevo genera un ID random, si no, mantiene el idTemporal que se seleccionó del Grid
                 int idFinal = esNuevo ? new Random().Next(1000, 9999) : idTemporal;
 
-                if (!esNuevo && nombreProductoOriginal != txtNombre.Text.Trim())
+                // Si es una edición y el ID cambió por alguna razón, borramos el anterior para evitar duplicados
+                if (!esNuevo && idTemporal != idFinal)
                 {
                     await client.Child("Productos").Child("prod_" + idTemporal).DeleteAsync();
                 }
@@ -78,21 +101,26 @@ namespace Finalv67
                 {
                     Id = idFinal,
                     Nombre = txtNombre.Text.Trim(),
-                    Precio = Convert.ToDouble(txtPrecio.Text),
-                    Stock = Convert.ToInt32(txtStock.Text),
+                    Precio = precioVerificado,
+                    Stock = stockVerificado,
                     Estado = chkActivo.Checked ? 1 : 0
                 };
 
+                // Va directamente a "prod_XXXX"
                 await client.Child("Productos").Child("prod_" + idFinal).PutAsync(producto);
 
-                MessageBox.Show(esNuevo ? "Producto creado exitosamente." : "Producto actualizado.");
+                MessageBox.Show(esNuevo ? "Producto creado exitosamente en la nube." : "Producto actualizado con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 Limpiar();
                 CargarStock();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error: " + ex.Message);
+                MessageBox.Show("Error al guardar en Firebase: " + ex.Message, "Error de Red", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                this.Cursor = Cursors.Default;
             }
         }
 
@@ -129,19 +157,37 @@ namespace Finalv67
         // elimna el producto seleccionado
         private async void btnEliminar_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(lblId.Text)) return;
+            if (string.IsNullOrEmpty(lblId.Text))
+            {
+                MessageBox.Show("Por favor, selecciona un producto de la lista primero.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
-            if (MessageBox.Show("¿Seguro?", "Confirmar", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if (MessageBox.Show("¿Está seguro de que desea eliminar este producto de la nube de forma permanente?", "Confirmar Eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
             {
                 try
                 {
+                    this.Cursor = Cursors.WaitCursor;
                     var client = ConexionFirebase.Conectar();
-                    // Eliminamos usando el ID fijo con prefijo
-                    await client.Child("Productos").Child("prod_" + lblId.Text).DeleteAsync();
+
+                    // en teoria todos deben comenzar por "prod_" XD asi que
+                    // calculamos la ruta exacta directamente. No descargamos toda la lista.
+                    string llaveDirectaProd = "prod_" + lblId.Text.Trim();
+                    await client.Child("Productos").Child(llaveDirectaProd).DeleteAsync();
+
+                    MessageBox.Show("Producto eliminado correctamente de Firebase.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
                     CargarStock();
                     Limpiar();
                 }
-                catch (Exception ex) { MessageBox.Show("Error: " + ex.Message); }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al intentar eliminar en Firebase: " + ex.Message, "Error de Conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                finally
+                {
+                    this.Cursor = Cursors.Default;
+                }
             }
         }
     }

@@ -17,7 +17,7 @@ namespace Finalv67
 
             var client = ConexionFirebase.Conectar();
 
-            var usuario = await client.Child("usuarios").Child(LoginForm.UidUsuarioActual).OnceSingleAsync<UsuarioFirebase>();
+            var usuario = await client.Child("usuarios").Child(LoginForm.UidUsuarioActual).OnceSingleAsync<PersonalFirebase>();
 
             if (usuario != null)
             {

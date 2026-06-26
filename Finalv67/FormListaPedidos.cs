@@ -3,6 +3,7 @@ using Firebase.Database;
 using Firebase.Database.Query;
 using System;
 using System.Data;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -227,6 +228,15 @@ namespace Finalv67
             {
                 MessageBox.Show("Error al eliminar de Firebase: " + ex.Message, "Error de Red", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = "https://dlolas.netlify.app/html/ventas.html",
+                UseShellExecute = true
+            });
         }
     }
 }

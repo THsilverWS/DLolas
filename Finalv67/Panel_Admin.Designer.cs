@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Panel_Admin));
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             panel1 = new Panel();
             button7 = new Button();
             button6 = new Button();
@@ -50,15 +49,12 @@
             lblUsuario = new Label();
             pbFotoUsuario = new PictureBox();
             panelContenedor = new Panel();
-            dgvPedidos = new DataGridView();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panel5.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pbFotoUsuario).BeginInit();
-            panelContenedor.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dgvPedidos).BeginInit();
             SuspendLayout();
             // 
             // panel1
@@ -331,36 +327,11 @@
             // 
             // panelContenedor
             // 
-            panelContenedor.Controls.Add(dgvPedidos);
             panelContenedor.Dock = DockStyle.Fill;
             panelContenedor.Location = new Point(277, 56);
             panelContenedor.Name = "panelContenedor";
             panelContenedor.Size = new Size(923, 644);
             panelContenedor.TabIndex = 2;
-            // 
-            // dgvPedidos
-            // 
-            dgvPedidos.AllowUserToAddRows = false;
-            dgvPedidos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dgvPedidos.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
-            dgvPedidos.BackgroundColor = SystemColors.Control;
-            dgvPedidos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = SystemColors.Window;
-            dataGridViewCellStyle1.Font = new Font("Century Gothic", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle1.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            dgvPedidos.DefaultCellStyle = dataGridViewCellStyle1;
-            dgvPedidos.Dock = DockStyle.Fill;
-            dgvPedidos.Location = new Point(0, 0);
-            dgvPedidos.Name = "dgvPedidos";
-            dgvPedidos.ReadOnly = true;
-            dgvPedidos.RowHeadersVisible = false;
-            dgvPedidos.Size = new Size(923, 644);
-            dgvPedidos.TabIndex = 0;
-            dgvPedidos.Visible = false;
             // 
             // Panel_Admin
             // 
@@ -383,8 +354,6 @@
             tableLayoutPanel1.ResumeLayout(false);
             tableLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pbFotoUsuario).EndInit();
-            panelContenedor.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)dgvPedidos).EndInit();
             ResumeLayout(false);
         }
 
@@ -406,7 +375,6 @@
         private Panel panel5;
         private Panel panelContenedor;
         private Label label2;
-        private DataGridView dgvPedidos;
         private Label lblCorreo;
         private PictureBox pbFotoUsuario;
         private Label lblUsuario;

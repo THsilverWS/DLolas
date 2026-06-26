@@ -85,7 +85,7 @@ namespace Finalv67
             txtTelefono.Text = _personaOriginal.telefono;
 
             // ============================================================
-            // 2. SELECCIONAR EL ROL POR DEFECTO
+            // SELECCIONAR EL ROL POR DEFECTO
             // ============================================================
             string rolNormalizado = _personaOriginal.rol?.Trim();
             if (rolNormalizado?.ToLower() == "admin" || rolNormalizado?.ToLower() == "administrador")
@@ -98,7 +98,7 @@ namespace Finalv67
             }
 
             // ============================================================
-            // 3. SELECCIONAR EL CARGO POR DEFECTO
+            // SELECCIONAR EL CARGO POR DEFECTO
             // ============================================================
             string cargoNormalizado = _personaOriginal.cargo?.Trim();
 
@@ -112,7 +112,7 @@ namespace Finalv67
             }
 
             // ============================================================
-            // 4. REGLA INVIOLABLE PARA EL DUEÑO
+            //  REGLA INVIOLABLE PARA EL DUEÑO
             // ============================================================
             if (cargoNormalizado?.ToLower() == "dueño")
             {

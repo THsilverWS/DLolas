@@ -43,6 +43,7 @@
             lblEntregados = new Label();
             lblCancelados = new Label();
             panel4 = new Panel();
+            label8 = new Label();
             label5 = new Label();
             panel5 = new Panel();
             label4 = new Label();
@@ -50,7 +51,6 @@
             dgvStockBajo = new DataGridView();
             label6 = new Label();
             label7 = new Label();
-            label8 = new Label();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panel2.SuspendLayout();
@@ -81,7 +81,7 @@
             label1.ForeColor = Color.Gray;
             label1.Location = new Point(98, 13);
             label1.Name = "label1";
-            label1.Size = new Size(140, 21);
+            label1.Size = new Size(107, 17);
             label1.TabIndex = 2;
             label1.Text = "Pedidos Totales";
             // 
@@ -101,7 +101,7 @@
             lblTotal.Font = new Font("Century Gothic", 20.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblTotal.Location = new Point(98, 44);
             lblTotal.Name = "lblTotal";
-            lblTotal.Size = new Size(36, 40);
+            lblTotal.Size = new Size(29, 32);
             lblTotal.TabIndex = 0;
             lblTotal.Text = "0";
             // 
@@ -123,7 +123,7 @@
             label2.ForeColor = Color.Gray;
             label2.Location = new Point(99, 13);
             label2.Name = "label2";
-            label2.Size = new Size(102, 21);
+            label2.Size = new Size(78, 17);
             label2.TabIndex = 4;
             label2.Text = "Pendientes";
             // 
@@ -143,7 +143,7 @@
             lblPendientes.Font = new Font("Century Gothic", 20.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblPendientes.Location = new Point(99, 44);
             lblPendientes.Name = "lblPendientes";
-            lblPendientes.Size = new Size(36, 40);
+            lblPendientes.Size = new Size(29, 32);
             lblPendientes.TabIndex = 0;
             lblPendientes.Text = "0";
             // 
@@ -165,7 +165,7 @@
             label3.ForeColor = Color.Gray;
             label3.Location = new Point(102, 15);
             label3.Name = "label3";
-            label3.Size = new Size(105, 21);
+            label3.Size = new Size(81, 17);
             label3.TabIndex = 6;
             label3.Text = "Entregados";
             // 
@@ -185,7 +185,7 @@
             lblEntregados.Font = new Font("Century Gothic", 20.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblEntregados.Location = new Point(102, 44);
             lblEntregados.Name = "lblEntregados";
-            lblEntregados.Size = new Size(36, 40);
+            lblEntregados.Size = new Size(29, 32);
             lblEntregados.TabIndex = 0;
             lblEntregados.Text = "0";
             // 
@@ -195,7 +195,7 @@
             lblCancelados.Font = new Font("Century Gothic", 20.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblCancelados.Location = new Point(102, 44);
             lblCancelados.Name = "lblCancelados";
-            lblCancelados.Size = new Size(36, 40);
+            lblCancelados.Size = new Size(29, 32);
             lblCancelados.TabIndex = 3;
             lblCancelados.Text = "0";
             // 
@@ -214,13 +214,24 @@
             panel4.Size = new Size(923, 260);
             panel4.TabIndex = 4;
             // 
+            // label8
+            // 
+            label8.Anchor = AnchorStyles.Top;
+            label8.AutoSize = true;
+            label8.Location = new Point(329, 70);
+            label8.Name = "label8";
+            label8.Size = new Size(209, 17);
+            label8.TabIndex = 7;
+            label8.Text = "Resumen rápido de tu negocio";
+            // 
             // label5
             // 
+            label5.Anchor = AnchorStyles.Top;
             label5.AutoSize = true;
             label5.Font = new Font("Century Gothic", 20.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label5.Location = new Point(287, 26);
             label5.Name = "label5";
-            label5.Size = new Size(345, 40);
+            label5.Size = new Size(274, 32);
             label5.TabIndex = 4;
             label5.Text = "Resumen de Ventas";
             // 
@@ -242,7 +253,7 @@
             label4.ForeColor = Color.Gray;
             label4.Location = new Point(102, 15);
             label4.Name = "label4";
-            label4.Size = new Size(113, 21);
+            label4.Size = new Size(87, 17);
             label4.TabIndex = 6;
             label4.Text = "Cancelados";
             // 
@@ -276,7 +287,7 @@
             label6.Font = new Font("Century Gothic", 20.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label6.Location = new Point(18, 270);
             label6.Name = "label6";
-            label6.Size = new Size(227, 40);
+            label6.Size = new Size(178, 32);
             label6.TabIndex = 5;
             label6.Text = "Stock Crítico";
             // 
@@ -285,22 +296,13 @@
             label7.AutoSize = true;
             label7.Location = new Point(21, 308);
             label7.Name = "label7";
-            label7.Size = new Size(433, 21);
+            label7.Size = new Size(337, 17);
             label7.TabIndex = 6;
             label7.Text = "Productos con menos de 5 unidades en inventario.";
             // 
-            // label8
-            // 
-            label8.AutoSize = true;
-            label8.Location = new Point(329, 70);
-            label8.Name = "label8";
-            label8.Size = new Size(267, 21);
-            label8.TabIndex = 7;
-            label8.Text = "Resumen rápido de tu negocio";
-            // 
             // FormDashboard
             // 
-            AutoScaleDimensions = new SizeF(10F, 21F);
+            AutoScaleDimensions = new SizeF(8F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Control;
             ClientSize = new Size(923, 644);

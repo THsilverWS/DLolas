@@ -31,23 +31,23 @@
             dgvProductos = new DataGridView();
             panel1 = new Panel();
             button1 = new Button();
-            button2 = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvProductos).BeginInit();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
             // dgvProductos
             // 
+            dgvProductos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvProductos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvProductos.Dock = DockStyle.Fill;
             dgvProductos.Location = new Point(0, 100);
             dgvProductos.Name = "dgvProductos";
+            dgvProductos.RowHeadersVisible = false;
             dgvProductos.Size = new Size(800, 350);
             dgvProductos.TabIndex = 0;
             // 
             // panel1
             // 
-            panel1.Controls.Add(button2);
             panel1.Controls.Add(button1);
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
@@ -57,21 +57,12 @@
             // 
             // button1
             // 
-            button1.Location = new Point(39, 40);
+            button1.Location = new Point(309, 42);
             button1.Name = "button1";
             button1.Size = new Size(161, 23);
             button1.TabIndex = 0;
             button1.Text = "Actualizar Productos";
             button1.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            button2.Location = new Point(512, 40);
-            button2.Name = "button2";
-            button2.Size = new Size(160, 23);
-            button2.TabIndex = 1;
-            button2.Text = "Notificar stock bajo";
-            button2.UseVisualStyleBackColor = true;
             // 
             // FormInventario
             // 
@@ -92,7 +83,6 @@
 
         private DataGridView dgvProductos;
         private Panel panel1;
-        private Button button2;
         private Button button1;
     }
 }

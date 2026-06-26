@@ -11,7 +11,7 @@ namespace Finalv67
             InitializeComponent();
         }
 
-        // 1. Añadimos el evento Load para invocar el método
+        // Añadimos el evento Load para invocar el método
         private void FormDashboard_Load_1(object sender, EventArgs e)
         {
             CargarResumen();
@@ -25,7 +25,7 @@ namespace Finalv67
                 var client = ConexionFirebase.Conectar();
                 var pedidos = await client.Child("Pedidos").OnceAsync<PedidoFirebase>();
 
-                // 2. Validación de null: si no hay pedidos, devolvemos 0 para evitar errores
+                // si no hay pedidos, devolvemos 0 para evitar errores
                 if (pedidos == null) return;
 
                 // Contamos los estados usando LINQ
