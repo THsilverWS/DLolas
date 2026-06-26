@@ -37,15 +37,29 @@ El sistema está dividido en módulos estratégicos pensados para la eficiencia 
 
 # 👥 Colaboradores
 
-<a href="https://github.com/THsilverWS">
-  <img src="https://github.com/THsilverWS.png" width="80px;" alt="THsilverWS"/>
+<a href="https://github.com/THsilverWS" title="THsilverWS (Desarrollador Principal)">
+  <img src="https://github.com/THsilverWS.png" width="80px;" style="border-radius:50%;" alt="THsilverWS"/>
 </a>
-<a href="https://github.com/JuarezDKNN">
-  <img src="https://github.com/JuarezDKNN.png" width="80px;" alt="JuarezDKNN"/>
+<a href="https://github.com/JuarezDKNN" title="JuarezDKNN (QA & Bug Fixing)">
+  <img src="https://github.com/JuarezDKNN.png" width="80px;" style="border-radius:50%;" alt="JuarezDKNN"/>
+</a>
+<a href="https://github.com/alialii07" title="alialii07 (Testing)">
+  <img src="https://github.com/alialii07.png" width="80px;" style="border-radius:50%;" alt="alialii07"/>
 </a>
 
-**THsilverWS** - Desarrollador Principal  
-**JuarezDKNN** - Colaborador
+### 🛠️ Roles y Responsabilidades
+
+* **THsilverWS** - Desarrollador Principal  
+    *Responsable de la arquitectura base del sistema, diseño asíncrono y la integración completa con Firebase.*
+* **JuarezDKNN** - Colaborador / Bug Fixing  
+    *Encargado de la detección de excepciones, depuración de código en tiempo real y resolución de conflictos de stock.*
+* **alialii07** - Colaborador en Pruebas  
+    *Responsable de la fase de pruebas de caja negra, validación de formularios y simulación de concurrencia de ventas.*
+
+---
+
+> 📌 **Nota sobre el Trabajo en el Repositorio:**
+> El desarrollo de este ecosistema se gestionó de forma híbrida para agilizar las entregas académicas antes de centralizarlo en GitHub. Parte del equipo trabajó de manera local descomprimiendo y editando módulos específicos del archivo de solución `.sln`. Posteriormente, estos cambios externos fueron integrados, validados y fusionados manualmente por los desarrolladores principales directamente en este repositorio remoto para asegurar una única versión estable.
 
 ---
 
@@ -70,14 +84,14 @@ Antes de ejecutar el proyecto, asegúrate de contar con los siguientes requisito
 
 ### IDE Recomendado
 
-* Visual Studio 2026 (obligatorio o superior).
+* Visual Studio 2026.
 
-### Framework
+### Plataforma de desarrollo
 
-* .NET Framework 10.
+* .NET 10.
 
 > **Nota de compatibilidad:**
-> No se garantiza el correcto funcionamiento ni ha sido probado en Visual Studio 2022, dado que este último carece del soporte nativo para los componentes actualizados de .NET Framework 10 requeridos por las librerías utilizadas en el sistema.
+> No se garantiza el correcto funcionamiento ni ha sido probado en Visual Studio 2022, dado que este último carece del soporte nativo para los componentes actualizados de .NET 10 requeridos por las librerías utilizadas en el sistema.
 
 ---
 
@@ -152,42 +166,10 @@ El proyecto utiliza las siguientes tecnologías y bibliotecas:
 * Windows Forms
 * Firebase Realtime Database
 * Firebase Authentication
-* Newtonsoft.Json
-* System.Data
-* System.Drawing
-* .NET Framework 10
+* .NET 10
 
 Las dependencias se restaurarán automáticamente mediante NuGet al abrir la solución.
 
----
-
-## 📂 Estructura General del Proyecto
-
-```text
-DLolas/
-│
-├── Formularios/
-│   ├── Login
-│   ├── Dashboard
-│   ├── Ventas
-│   ├── Inventario
-│   ├── Pedidos
-│   └── Perfil
-│
-├── Clases/
-│   ├── Modelos
-│   ├── Servicios Firebase
-│   └── Utilidades
-│
-├── Recursos/
-│   ├── Imágenes
-│   └── Iconos
-│
-├── Packages
-├── App.config
-├── Program.cs
-└── DLolas.sln
-```
 
 ---
 
